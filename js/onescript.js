@@ -1,0 +1,276 @@
+// The following string enables the new JS. Only comments can be above this, otherwise it's ignored.
+"use strict"
+
+
+// ===========================================================Variables
+// To declare variables we do this:
+//
+// let aNum;
+// aNum = 3;
+//
+// This can also be done like this:
+//
+// let aNum = 3;
+//
+// We can do multiple variables at once, like this:
+
+/*
+let aNum = 3,
+aDifferentNum = 2,
+aString = "hello";
+*/
+
+// Variables can be named using letters, digits, and the symbols $ and _. The first character cannot be a number. Reserved named cannot be used either, such as 'let' or 'class'.
+
+
+// We can have constants too, they are written as:
+//
+// const myConstant = "can't change me"
+//
+// It's common practice to use uppercase constants as aliases to make life easier. 'const COLOR_RED = "#F00";' lets us use the color RED without remembering the hex value. Uppercase constants are used for precomputed or known values, ie pageLoadTime isn't known prior to program execution, so it's written in lowercase, while the color RED is constant.
+//
+//
+// You can denote strings using "", '', and ``. "" and '' does the same job, but `backticks` allows us to insert varibales or expressions into a string, such as:
+
+/*
+let name = "Sir"
+alert(`hello you, your name's ${name} innit?`)
+*/
+
+// ==========================================================Data types
+// You can figure out datatypes of variables by calling the typeof operate.
+//
+// typeof x
+// typeof(x)
+//
+// This returns a string with the datatype. Functions are Objects in Javascript, but typeof treats them differently. Null returns Object too, that's wrong, too.
+
+/*
+let a = "Nuwdhauijd";
+alert( `hello ${"bitch"}` ); // returns "hello bitch"
+alert( `hello ${a}` ); // returns "hello Nuwdhauijd"
+alert( `hello ${1}` ); // returns "hello 1"
+*/
+
+// You can convert datatypes, ie use the toString, toBoolean or toNumber operate like this:
+//
+// value = String(value);
+// value = Number(value); <--- Strings is read as is, whitespaces are ignored.
+// value = Boolean(value); <--- Empty strings return false, as does null, NaN, 0 and Undefined. 1 returns true.
+//
+// This turns the value into a string, no matter the datatype.
+
+
+
+// =============================================================Operators
+// Operaters applies to operands. 1*3 has two operands, the left operand is 1, the irght operand is 3. Operands are also called arguments.
+// An operator is unary if it has only a single operand. ie:
+//
+// let x = 5;
+// x = -x; <--- -1, unary negation was applied.
+//
+// An operator is binary if it has two operands. ie:
+
+/*
+let x = 1,
+y = 2;
+alert( y - x  ); <--- 1, binary minus subtracts values.
+*/
+
+// Here we're talking about two different operators, the unary negation (single operand, reverses the sign) and the binary subtraction (two operands, - subtracts here).
+// If one of the operands is a string while doing binary +, all operands' datatype is converted to string. If the binary + is applied to strings, it merges (concatenates) them. This looks like this:
+//
+// "1" + 2; <--- 12
+// "10" + 11; <--- 1011
+// "hello " + "world"; <---- hello world
+//
+// String concatenation and conversion is  a feature of the binary "+". Other operators only work with numbers, as they always convert their operands to numbers. ie:
+//
+// "1" - 1; <--- 0
+// "200" / "2"; <--- 100
+//
+// The unary plus, when a + is applied to a single value, doesn't do anything with numbers, but if the operand isn't a number, it's converted into one, just like with number(x);. ie:
+//
+// +true; <--- 1
+// +""; <--- 0
+//
+// This is useful if we receive strings from HTML we want to use as numbers. Example:
+
+/*
+let foo = "2"
+let bar = "4"
+alert( +foo + +bar ); <--- 6. Without unary +, it would return 24. Number(x) would've done just the same thing, but would take up much more space and time.
+*/
+
+// Unary pluses are applied to values before binary plusses, this is because of their higher precedence.
+// For the full precedence table: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence .
+// Generally the unary operators have higher precedence than their corresponding binary ones.
+//
+// ==========================================================Assignment
+// Assignment, "=", is also an operator, it has a very low precedence of 3. That's why varibles like x = 2 * 2 + 2 has the calculations done first before storing the result in x. You can do chained assignments like this:
+//
+// let a, b, c
+// a = b = c = 5 + 5; <--- a, b and c's values are all 10.
+
+// Assignments always return a value, even if you do an asignment inside an assignment. ie
+/*
+let a = 1,
+b = 2,
+c = 3 - (a = b + 1); //This makes a = 3, and c = 0.
+*/
+
+// To do modulus, you use %
+//
+// 5 % 2; <--- 1.
+//
+// To do exponentiation, you use **
+//
+//
+// 2 ** 3; <--- 8 because 2^3=8
+// 4 ** (1/2); <--- This is the same as the sqrt of.
+//
+// To do increments and decrements, use ++ and -- respectively. They can only be applied to variables. Increments and decrements are both operators, and all operators return a value. If you use ++variable or --variable, the prefix form returns the new value, while the postfix form returns the old value(this is prior to increment/decrement). An example for prefix form:
+
+/*
+let counter = 1;
+let a = ++counter; <--- (*) this is prefix form
+alert(a); <--- 2
+*/
+
+// In short, if we want to increment/decrement the value AND use the result of the operator right now, we need the prefix form. If we wnat to decrement/increment but use the old value, we use the postfix form.
+//
+// =========================================================Bitwise operators
+// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
+//
+//
+// We can do the += -= *= thing in javascript too. "modify and assign operators"
+//
+// Commas have very low precedence, what they do is allow you to run multiple operations, but only return the result of the very last operation.
+// In javascript we can od the < > <= >= == != things too.
+// When comparing strings, the strings are evaluated letter by letter, ie "a < "b", "o" > "a", "Glow" > "Glee".
+//
+// You can use the strict equality oprator, ===, that checks equality without type conversion. This is useful when you want to differentiate between 0 and false, and "" and false, undefined and null.
+//
+// Equality check == and comparisons < > >= <= work differently, comparisons convert null to a number, treats it as a zero, hence null >= 0 is true, but null == 0 and null > 0 is false. == works by rule, without any conversions, so they return true.
+// Just be very careful when using comparisons with undefined or null.
+//
+//
+// ==================================================Alert, prompt and confirm
+//
+// alert(message) alerts user, it opens a modal window (visitor can't interact with rest of page until the alert has been dealt with.)
+//
+// result = prompt(title[, default]); shows a modal window with a text message, and an input fielt for the visitor, with the buttons OK/CANCEL.
+// alert(`Hello ${result}, you sure are a thing`); <--- Hello default, you sure are a thing
+//
+// Function confirm shows a modal window with a question and two buttons: OK and CANCEL.
+// The result is true if OK is pressed and false otherwise.
+// For example:
+//
+// let isBoss = confirm("Are you the boss?");
+// alert( isBoss ); // true if OK is pressed
+
+/*
+const prompt = require('electron-prompt'); <--- we need "npm install electron-prompt --save" to do this
+prompt({
+    title: 'Name Assignment',
+    label: 'Name Prompt',
+    value: 'Enter your name boi',
+    inputAttrs: {
+       type: 'string'
+
+     }
+})
+.then((r) => {
+    if(r === null) {
+        console.log('user cancelled');
+    } else {
+        alert(`Hello, ${r}, how are you?`);
+    }
+})
+.catch(console.error);
+*/
+
+// If and Else works as they use to. if (args){code}else if{code}else{code}
+//
+// We can use the Ternary Operator "?" instead of the if statement for shorter code in some instances. This looks like:
+//
+// let result = condition ? value1 : value 2;
+//
+// This is read as condition ? _do this if true_ : _do this if false_;
+// We can have multiple ?, which can be done like this:
+
+/*
+let age = prompt('age?', 18);
+let message = (age < 3) ? 'hello young one.' :
+(age < 18) ? 'hello older one' :
+(age < 100) ? 'hello elderly' :
+'hello the eldest of us';
+alert( message );
+*/
+
+// This is kind of like if / else if / else tests, if the test returns false it moves onto the next test.
+
+/*
+const prompt = require('electron-prompt'); //<--- we need "npm install electron-prompt --save" to do this
+prompt({
+    title: 'Login',
+    label: 'Enter Login Credentials',
+    value: 'Enter your username boi',
+    inputAttrs: {
+        type: 'string'
+     }
+ })
+ .then((r) => {
+     if(r === null) {
+         console.log('user cancelled');
+     }else if (r === "admin"){
+         prompt({
+             title: 'login',
+             label: 'Enter Login Credentials',
+             value: 'Enter your password boi',
+             inputAttrs: {
+                 type: 'string'
+             }
+         })
+             .then((r) => {
+                 if(r == "12345"){
+                     alert("Hello and welcome, it's all fine and good");
+                 } else{
+                     alert("Wrong password boi");
+                 }
+             })
+         .catch(console.error);
+     }
+     else{
+         alert("I don't know you, nice to meet you though.");
+     }
+ })
+.catch(console.error);
+*/
+
+// ===============================================================Logical Operators
+// OR "||" returns true if just one of the operands return true. This can look like this:
+
+/*
+let hour = 9;
+if (hour < 10 || hour > 18){ // you can use more than just one || bro
+    alert( "The office is closed" );
+}
+*/
+
+// When multiple || are used, the operator evaluates the operands from left to right, each operand is converted to boolean, if the result is true, it stops and returns the original value of the operand.
+// If all other operands have been assessed, (ie they were all false), return the last operand.
+// This means that if an operand returns true in the chain of ||, it returns the first true value. If none of them are true, all are false, the last operand is returned.
+// A value is returned in its original form, not converted to a boolean. Like this:
+
+/*
+alert( 1 || 0 ); // 1 (1 is truthy)
+alert( true || 'no matter what' ); // (true is truthy)
+alert( null || 1 ); // 1 (1 is the first truthy value)
+alert( null || 0 || 1 ); // 1 (the first truthy value)
+alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
+*/
+
+
+
+
