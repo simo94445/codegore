@@ -335,4 +335,99 @@ i++;
 } while (i < 3);
 */
 
+// ================================================The for loop
 
+// for loops are built like this
+
+/*
+for(begin, condition; step){ // begin executes once when entering the loop, condition is checked before every loop iteration, step executes after the body on each iteration, but before the condition check.
+    // LOOP BODY, you do stuff here, this iterates as long as the condition is true.
+}
+*/
+
+// This loop runs alert(i) for i from 0 up to 10, excluding 10.
+
+/*
+for(let i = 0, i < 10; i++){
+    alert(i);
+}
+*/
+
+// The variable i in the previous examples are inline, that is they're declared inline variables. i cannot be called outside of the loop body. You can use variables outside of the loop though.
+// Had we already declared i, we could replace "let i = 0" with ";". We can do some crazy shit too, like this:
+
+/*
+let i = 0
+for (; i < 3;){
+alert(i++);
+}
+*/
+
+// That shit runs like a while loop (while i < 3).
+// We can create infinite loops by for(;;){}, that will run over and over.
+// You can break out of the loop with "break;" like this:
+
+/*
+let sum = 0;
+while (true) {
+    let value = +prompt("Enter a number", '');
+    if (!value) break; // If the user fails to enter an input, it breaks the loop.
+    sum += value;
+}
+alert( 'Sum: ' + sum );
+*/
+
+// "continue" does about the same thing, except it skips the current iteration and continues if the condition allows it to. That looks a bit like this:
+
+/*
+for (let i = 0; i < 100; i++) {
+    // if true, skip the remaining part of the body
+    if (i % 2 == 0) continue;
+    alert(i); // 1, then 3, 5, 7, 9, skipping every other number.
+}
+*/
+
+// We can use labels to break nested loops, like this
+
+/*
+outer: for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+        let input = prompt(`Value at coords (${i},${j})`, '');
+        // if an empty string or canceled, then break out of both loops
+        if (!input) break outer; // (*)
+        // do something with the value...
+    }
+}
+alert('Done!');
+*/
+
+// =======================================The switch statement
+// Switch statements can replace multiple if checks. The syntax is like this:
+
+/*
+switch(x) {
+    case 'value1':
+        ...
+        [break]
+    case 'value2':
+        ...
+        [break]
+    default:
+        ...
+        [break]
+}
+*/
+
+// If there's no break;, the execution continues with the next case without any checks.
+
+// ============================================= Functions boiiiiiiii
+// Functions are blocks of code to run when called, like we know them. The syntax is:
+
+/*
+function showMessage();{
+    alert( "Welcome to functions, this function has been called with no parameters and it wouldn't care if you put any parameters in it." );
+}
+showMessage();
+*/
+
+//
