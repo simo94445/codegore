@@ -424,10 +424,20 @@ switch(x) {
 // Functions are blocks of code to run when called, like we know them. The syntax is:
 
 /*
-function showMessage();{
+function showMessage(){
     alert( "Welcome to functions, this function has been called with no parameters and it wouldn't care if you put any parameters in it." );
 }
 showMessage();
 */
 
+/*
+function showMyMessage(string, times){
+    for(;times > 0; times--){
+        alert(string); // example of using parameters here, lel
+    }
+}
+showMyMessage("hello boi", 5); // shows 5 alerts with "hello boi".
+/*
+
+// Variables declared inside functions are local variables, that is they only exist inside the function they're called in. You can use global variables in functions though.
 //
