@@ -440,4 +440,10 @@ showMyMessage("hello boi", 5); // shows 5 alerts with "hello boi".
 /*
 
 // Variables declared inside functions are local variables, that is they only exist inside the function they're called in. You can use global variables in functions though.
+// You can use "return" to return a value from a function, like we use to.
+//
+//
+//
+//
+//
 //
