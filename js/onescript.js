@@ -437,13 +437,85 @@ function showMyMessage(string, times){
     }
 }
 showMyMessage("hello boi", 5); // shows 5 alerts with "hello boi".
-/*
+*/
 
 // Variables declared inside functions are local variables, that is they only exist inside the function they're called in. You can use global variables in functions though.
 // You can use "return" to return a value from a function, like we use to.
-//
-//
-//
-//
-//
-//
+
+/*
+function min(arg1, arg2){
+    if(arg1 > arg2){return arg1;} else{return arg2;}
+}
+alert(min(5,2));
+*/
+
+/*
+function pow(arg1, arg2){
+    return (arg1**arg2)
+}
+alert(pow(3, 2));
+*/
+
+// =====================================Callback functions
+// I'm just inserting some code here, I'll know what I mean.
+
+/*
+function ask(question, yes, no) {
+if (confirm(question)) yes()
+    else no();
+}
+function showOk() {
+    alert( "You agreed." );
+}
+function showCancel() {
+    alert( "You canceled the execution." );
+}
+
+// Can be written much shorter by:
+
+
+function ask(question, yes, no) {
+    if (confirm(question)) yes()
+    else no();
+}
+ask(
+    "Do you agree?",
+    function() { alert("You agreed."); }, // anonymous functions boiiii
+    function() { alert("You canceled the execution."); }
+); // Just call using anonymous functions, that's the spirit of JS apparently.
+*/
+
+/*
+// An example of a Function Declaration:
+function times(a, b) {
+    return a * b;
+}
+
+// An example of a Function Expression
+let times = function(a, b){
+    return a * b;
+}
+*/
+
+// Function Declarations can be called earlier than it's defined. Function declarations are read first, sort of like an initialization stage, where function expressions can only be called after they have been defined.
+
+// ===============================================Arrow Functions
+// You can do arrow functions pretty easily like this:
+
+let myFunc = ( arg1, arg2, ...argN ) => expression;
+
+// This can be interpreted like this:
+
+/*
+let myFunc = function (arg1, arg2, ...argN){
+    return expression;
+}
+
+// use case could be:
+
+let power = ( x, y ) => a ** b;
+alert( power(5, 5) ); // This is like our power of function earlier, just prettier and shorter.
+*/
+
+
+
