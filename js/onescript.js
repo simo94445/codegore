@@ -271,6 +271,68 @@ alert( null || 0 || 1 ); // 1 (the first truthy value)
 alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
 */
 
+// This can be used like this, too:
 
+/*
+let x;
+false || (x = 1); // The first statement is false, so it moves onto the next, which makes x = 1.
+alert(x); // 1
+
+let x;
+true || (x = 1); // The first statement is true, so it stops there and does not assign x any value.
+alert(x); // undefined
+*/
+
+// The rules for && is about the same, except that AND returns the first false value, while OR returns the first true value. Example:
+
+/*
+alert( 1 && 0 ); // 0
+alert( 1 && 5 ); // 5
+alert( null && 5 ); // null
+alert( 0 && "no matter what" ); // 0
+alert( 1 && 2 && null && 3 ); // null
+alert( 1 && 2 && 3 ); // 3, the last one, as they all return true.
+*/
+
+// The precedence of && operator is higher than ||, so it executes first. ie: alert( 5 || 1 && 0 ); // 5, 1 && 0 is evaluated first, but 0 is false, so it returns 5.
+
+/*
+let x = 1;
+(x > 0) && alert( 'Greater than zero!' ); // The action in the right part of && would execute only if the evaluation reaches it. That is: only if (x > 0) is true.
+*/
+
+// NOT "!" works like usual, you can have two of them to return the boolean type of something. example:
+
+/*
+alert( !true ); // false
+alert( !0 ); // true. A double NOT !! is sometimes used for converting a value to boolean type:
+alert( !!"non‐empty string" ); // true
+alert( !!null ); //false
+*/
+
+/*
+let age = 90;
+if (!(age >= 14 && age <= 90)){
+    alert("not in range");
+} else{
+    alert("in range, noob");
+}
+*/
+
+/*
+if (-1 || 0) alert( "first" ); // This code runs because -1 evaluates to true.
+if (-1 && 0) alert( "second" ); // This code doesn't run because 0 evaluates to false.
+if (null || -1 && 1) alert ( "third" ); // This code runs too, because -1 && 1 evaluates to true.
+*/
+
+// While loops work as usual, you can have do while loops to. This lets you run the code at least once no matter whether the condition is true or false. It can look like this:
+
+/*
+let i = 0;
+do {
+alert( i );
+i++;
+} while (i < 3);
+*/
 
 
