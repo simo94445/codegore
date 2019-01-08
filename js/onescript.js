@@ -510,7 +510,7 @@ let times = function(a, b){
 let myFunc = function (arg1, arg2, ...argN){
     return expression;
 }
-
+/
 // use case could be:
 
 let power = ( x, y ) => a ** b;
@@ -540,7 +540,7 @@ ask(
 // ==================================================== I should probably learn how to do automated testing with Mocha.
 // --//--
 // ==================================================== Objects
-// Objects are used to store keyed collections of variosu datas, and more complex entities. Objects can be created using figure brackets {...}, with an optional list of properties.
+// Objects are used to store keyed collections of varios datas, and more complex entities. Objects can be created using figure brackets {...}, with an optional list of properties.
 // Properties are written as: "key: value" pairs, where the key is a string (property name) and the value can be _anything_.
 // To understand Objects, we can imagine them as cabinets with signed files, storing data in its file by the key. It's easy to find a file by its name and to add or remove files.
 // We can create empty objects with one of two syntaxes:
@@ -561,7 +561,7 @@ let user = { // create object
 */
 
 // Properties have keys (known as names or identifiers) before the colon :, followed by a value. In the previous example, we have 3 properties with 3 different values.
-// Property values can be accessed using the dot notation like this:
+/// Property values can be accessed using the dot notation like this:
 
 //alert( user.name + " " + user.age + " " + user.profession  ); // Sir 28 doctor
 
@@ -605,4 +605,118 @@ computerstuff[computertype] = "SBC"; // "Single-board computer"
 */
 
 // We use dot notation if the property names are known and simple, and square brackets when it gets more complex.
+// Properties of objects can have any name we desire, except  "__proto__". This is for historic reasons.
+// While coding, we often use existing variables as values for property names, ie:
+
+/*
+function makeArgs(arg1, arg2){
+    return {
+        arg1: arg1,
+        arg2: arg2,
+    };
+}
+let args = makeArgs("a string", 42);
+alert(args.arg1 + " " + args.arg2);
+
+// There's a special property value shorthand to make life easier though:
+
+function makeArgs(arg1, arg2){
+    return {
+        arg1,
+        arg2,
+    };
+}
+*/
+
+// We can check for the existence of a property by just trying to access it. If it returns "undefined", it means that it doesn't exist. That's because nonexisting properties return undefined.
+
+/*
+let args = {};
+alert ( args.nonexistigArg === undefined ); // returns true because that property doesn't exist.
+
+// There's a cool way to do this though:
+
+let args = {
+    arg1: "foo",
+    arg2: "bar",
+};
+alert( "arg1" in args ); // Returns true, args.arg1 exists
+alert( "arg3" in args ); // returns false, no such property of args.
+*/
+
+// We can use for loops on properties of objects, like this:
+
+/*
+let args = {
+    arg1: "an argument",
+    arg2: "another argument",
+    arg3: 232,
+    arg4: true,
+};
+
+for(let myArgs in args){
+    alert( myArgs ); // arg1, arg2, arg3, arg4
+    alert( args[myArgs] ); // "an argument", "another argument", 232, true
+}
+*/
+
+// The order of properties in an object is the same as they are added in, with exception of numbers. Integer numbers are sorted, other's appear in creation order. Here's an example:
+
+/*
+let objectWithNums = {
+    "4": "Four",
+    "7": "Seven",
+    boneappletea: "example",
+    "1": "One",
+    "3": "Three",
+    exreme: "no regrats",
+};
+for(let args in objectWithNums){
+    alert(args); // 1 3 4 7 boneappletea exreme
+    alert(objectWithNums[args]);
+}
+*/
+
+// To counteract this, we can change the integer (integer property to non integer property) to ie: "+1" "+3" "+2" and call them by alert( +args );
 //
+// A variable does not store the object itself, but its "address in memory", which means that variables merely 'refer' to it. Ie:
+
+/*
+let objectivus = { key: "value" };
+let variablus = objectivus;
+variablus.key = "new value"; // Change the value of the object through the variable
+alert(objectivus.key); // "new value", this is to show that variablus just refers to objectivus, instead of copying its values and creating a new variable.
+*/
+
+// Objects are only equal if they are the same object, two different objects are not equal, even though they're both empty, ie:
+
+/*
+let x = {};
+let y = {};
+alert( x==y ); false
+alert( x===y ); false
+
+// To show that an object is equal to itself:
+
+let a = {};
+let b = a;
+alert( a==b ); // true
+alert( a===b ); // true
+*/
+
+// An object contained in a constant can be changed, that's because const fixes the value to the constname, it merely contains a reference to an object that's modifyable. ie:
+
+/*
+const myConst = {
+    key1: "Original O'key"
+};
+myConst.key1 = "New key"
+myConst.key2 = "Adding another O'key"
+
+for(let args in myConst){
+    alert( args ); // key1 key2
+    alert( myConst[args] ); // "New key" "Adding another O'key"
+}
+*/
+
+
