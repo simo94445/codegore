@@ -538,4 +538,71 @@ ask(
 */
 
 // ==================================================== I should probably learn how to do automated testing with Mocha.
+// --//--
+// ==================================================== Objects
+// Objects are used to store keyed collections of variosu datas, and more complex entities. Objects can be created using figure brackets {...}, with an optional list of properties.
+// Properties are written as: "key: value" pairs, where the key is a string (property name) and the value can be _anything_.
+// To understand Objects, we can imagine them as cabinets with signed files, storing data in its file by the key. It's easy to find a file by its name and to add or remove files.
+// We can create empty objects with one of two syntaxes:
 
+/*
+let user = new Object(); // Object constructor syntax
+let user = {}; // Object literal syntax, this is the usual way to create objects.
+*/
+
+// Here's an example of creating an object using the Object literal syntax.
+
+/*
+let user = { // create object
+    name: "Sir", // by key "name" store value "Sir"
+    age: 28,
+    profession: "doctor"
+}; // Close with semicolon because it's an exression not a declaration.
+*/
+
+// Properties have keys (known as names or identifiers) before the colon :, followed by a value. In the previous example, we have 3 properties with 3 different values.
+// Property values can be accessed using the dot notation like this:
+
+//alert( user.name + " " + user.age + " " + user.profession  ); // Sir 28 doctor
+
+// To remove a property, we use the delete operator like this:
+
+// delete user.age;
+// delete user.profession;
+// Now user only has 1 property, that's name.
+
+// You can have multiword properties, which work like this:
+
+/*
+let user = {};
+user["one two"] = true;
+alert(user["one two"]); // returns true
+delete user["one two"];
+
+// or
+
+let user = {
+    "one two" = true
+}
+alert(user["one two"]);
+*/
+
+// We can do computed properties, like so:
+
+/*
+let computer = prompt("What type of computer?", "SBC");
+let computerstuff = {
+    [computertype]: "Single-board computer",
+};
+
+alert ( computer.SBC ); // "Single-board computer" if computertype="SBC"
+
+// or
+
+let computer = prompt("What type of computer?", "SBC");
+let computerstuff = {};
+computerstuff[computertype] = "SBC"; // "Single-board computer"
+*/
+
+// We use dot notation if the property names are known and simple, and square brackets when it gets more complex.
+//
