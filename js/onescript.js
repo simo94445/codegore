@@ -532,8 +532,8 @@ let ask = (question, yes, no) => {
 
 ask(
     "Do you concur boii?",
-    function() { alert("It seems you don't need me gentlement"); },
-    function() { alert("It seems you didn't concur. You should've concurred."); }
+    () => { alert("It seems you don't need me gentlement"); },
+    () => { alert("It seems you didn't concur. You should've concurred."); }
 );
 */
 
