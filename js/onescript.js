@@ -502,7 +502,7 @@ let times = function(a, b){
 // ===============================================Arrow Functions
 // You can do arrow functions pretty easily like this:
 
-let myFunc = ( arg1, arg2, ...argN ) => expression;
+/*let myFunc = ( arg1, arg2, ...argN ) => expression;*/
 
 // This can be interpreted like this:
 
@@ -515,7 +515,26 @@ let myFunc = function (arg1, arg2, ...argN){
 
 let power = ( x, y ) => a ** b;
 alert( power(5, 5) ); // This is like our power of function earlier, just prettier and shorter.
+
+
+// for multiline functions:
+
+let sum = (a, b) => {
+return a + b;
+}; // Remember to end with semicolon because it's an expression not a declaration.
+alert(sum(5,2));
 */
 
+/*
+let ask = (question, yes, no) => {
+    (confirm(question))?yes():no();
+};
+
+ask(
+    "Do you concur boii?",
+    function() { alert("It seems you don't need me gentlement"); },
+    function() { alert("It seems you didn't concur. You should've concurred."); }
+);
+*/
 
 
