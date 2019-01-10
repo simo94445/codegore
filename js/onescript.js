@@ -986,4 +986,59 @@ let cat = {
 cat.doSomething();
 */
 
+// this's value is evaluated at runtime, it can be anything. The same function might have different this' when called from different objects:
+
+/*
+let cat = { status: "god of the nth realm" };
+let something = { status: "The unspoken" };
+
+function doSomething(){
+    alert( this.status );
+}
+
+cat.idea = doSomething;
+something.idea = doSomething;
+cat.idea(); // god of the nth realm
+something.idea(); // The unspoken
+doSomething(); // undefined, when using "use strict". Without using "use strict", this would be the global object (window in a browser). This is historical behavior that use strict fixes. If a function uses 'this', then it's usually meant to be called in the context of an object.
+*/
+// ============================================================= Reference type
+/*
+let user = {
+    name: "Boii",
+    hi(){
+        alert(this.name);
+
+    }
+    bye(){
+        alert("bye");
+    }
+};
+// user.hi(); // Boii, this method of calling works fine
+(user.name == "Boii" ? user.hi : user.bye)(); // This causes an error.
+let hi = user.hi // This loses the "this".
+hi(); // Error, "this" is undefined
+*/
+
+// You can't call the property of an object using dot notation in a ternary operator, this is because dot notation returns not a function, but a value of the special Reference Type.
+// https://tc39.github.io/ecma262/#sec-reference-specification-type
+// The Reference type is a "specification type" (we don't use this, it's used internally by JS). The value of Reference Type is a three-value combination as such:
+// (base, name, strict)
+// in our case, it's (user, "hi", true).
+// When parathenses () are called on the Reference TYpe, they receive all the information about the object and its method, and can set the right "this" (user in this case).
+// Other operations such as hi = user.hi discards the reference type as a whole, and takes the value of user.hi (the function) and passes it on, such that any further operation uses its original "this". The correct value of "this" is only passed the right way if the function is called directly using obj.method() or obj[method]() syntax.
+
+// Arrow functions don't have their own "this". If we reference "this" from an arrow function, it's taken from the outer "normal" function. Ie:
+/*
+let user = {
+    firstName: "Boii",
+    sayHi() {
+        let arrow = () => alert(this.firstName); // "this" in the arrow functions uses the "this" of the function that contains it, so in this case it's Boii.
+        arrow();
+    }
+};
+user.sayHi(); // Boii
+// This is useful when we actually don't want a seperate "this", but rather to take it from the outer context.
+*/
+
 
