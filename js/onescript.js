@@ -1016,9 +1016,8 @@ let user = {
 };
 // user.hi(); // Boii, this method of calling works fine
 (user.name == "Boii" ? user.hi : user.bye)(); // This causes an error.
-let hi = user.hi // This loses the "this".
+let hi = user.hi // This loses the "this". This is because the expression is called at runtime, the "this" in this is called as a function without "this". Sorry about the phrasing.
 hi(); // Error, "this" is undefined
-*/
 
 // You can't call the property of an object using dot notation in a ternary operator, this is because dot notation returns not a function, but a value of the special Reference Type.
 // https://tc39.github.io/ecma262/#sec-reference-specification-type
@@ -1027,6 +1026,7 @@ hi(); // Error, "this" is undefined
 // in our case, it's (user, "hi", true).
 // When parathenses () are called on the Reference TYpe, they receive all the information about the object and its method, and can set the right "this" (user in this case).
 // Other operations such as hi = user.hi discards the reference type as a whole, and takes the value of user.hi (the function) and passes it on, such that any further operation uses its original "this". The correct value of "this" is only passed the right way if the function is called directly using obj.method() or obj[method]() syntax.
+// Property accessors (dot or square brackets) return a value of the Reference Type. Any operation on it except a method call (assignment = or ||) turns it into an ordinary value that doesn't carry the information allowing to set "this".
 
 // Arrow functions don't have their own "this". If we reference "this" from an arrow function, it's taken from the outer "normal" function. Ie:
 /*
@@ -1041,4 +1041,203 @@ user.sayHi(); // Boii
 // This is useful when we actually don't want a seperate "this", but rather to take it from the outer context.
 */
 
+/*
+function makeCats(){
+    return{
+        name: "Boi",
+        ref(){
+            return this;
+        }
+    };
+};
+let cat = makeCats();
+alert( cat.ref().name ); // Boi, this is because cat.ref() is a method, and the value of "this" is set to the object before the dot notation . .
+*/
 
+/*
+let calculator = {
+    sum(num1, num2){
+        this.num1 = num1,
+        this.num2 = num2,
+        alert( this.num1 + this.num2 );
+    },
+    mul(num1, num2){
+        this.num1 = num1,
+        this.num2 = num2,
+        alert( this.num1 * this.num2 );
+    },
+
+};
+calculator.mul( 5, 6 );
+*/
+
+/*
+let ladder = {
+    step: 0,
+    up(){
+        this.step++;
+        return this;
+    },
+    down(){
+        this.step--;
+        return this;
+    },
+    showStep(){
+        alert (this.step);
+        return this;
+    },
+};
+ladder.up().up().showStep();
+*/
+
+// =========================================================== Object to primitive conversion
+// When objects are added or subtracted, or printed, special methods in objects take care of the conversion.
+// Objects have no boolean values, as the boolean value of Objects always is true. All Objects are true in a boolean context. There's only string and numeric conversions.
+// Numeric conversion happens when we subtract objects, or apply any mathmatical functions. Date objects can be subtracted, date1 - date2 returns the time difference between the two dates.
+// String conversion usually happens as we output an object using alert(obj); and the likes.
+// When an Object is used somewhere a Primitive is expected/needed, ie in an alert or mathematical expression, it's converted to a primitive value using the ToPrimitive algorithm.
+// see https://tc39.github.io/ecma262/#sec-toprimitive for deeper understanding.
+// That algorithm allows us to customize the conversion using a special object method. Depending on context, to conversion has something called a "hint". There are 3 variants:
+// "string" for object-to-string conversion. This is used in alert();.
+// "number" for object-to-number conversion. This is used in maths, ie Number(obj), let n = +obj, < > / * ** and such.
+// "default" rarely occurs, this is when the operator doesn't know what type to expect. Ie like when binary plus + works fine both with strings and numbers, or when an object is compared using == with a string, number or symbol.
+// default is treated the same as string or number.
+
+// To do the conversion, JavaScript attempts to find and call three object methods:
+// obj[Symbol.toPrimitive](hint) if the method exists
+// obj.toString() and obj.valueOf() if it's a string, whatever exists
+// obj.valueOf() and obj.toString() if the hint is "number" or "default".
+
+/*
+let cats = {
+    status: "Sacred holiness of the abyss",
+    souls: 13928931283,
+    [Symbol.toPrimitive](hint){
+        alert(`hint: ${hint}`);
+        return hint == "string" ? `{status: "${this.status}"}` : this.souls;
+    }
+};
+
+alert(cats); // hint: string -> {"status: Sacred holiness of the abyss"}
+alert(+cats); // hint: number -> 13928931283
+alert(cats + 500); // hint: default -> result of 13928931283 + 500
+// The single method cats[Symbol.toPrimitive] handles all conversion cases, as we can see. cats becomes a self-descriptive string, or a soul amount depending on the conversion.
+*/
+
+
+// =================================================================== Constructer, operator "new"
+// {...} allows us to create a single object, but sometimes (often) we need to create many similar objects, like for multiple users or menu items. This can be done using the constructor function and the "new" operator.
+// Constructor functions are technically just regular functions, but they have two conventions though:
+// They are named with capital letter first.
+// They should be executed only with the "new" operator. ie:
+
+/*
+function Cat(name){
+    this.name = name;
+    this.isSentient = true;
+    this.isEternal = true;
+    this.isMagnificent = true;
+}
+let cat = new Cat("Whiskers");
+let cat2 = new Cat("Marlin");
+let cat3 = new Cat("Albert");
+alert(cat.name);
+alert(cat2.isSentient);
+alert(cat3.name);
+*/
+
+// Essentially when the function is executed as new Cat, it does the following things:
+// Adds new empty object and assigns it to "this"
+// The function body is executed, usually it modifies "this", like adding new properties to it.
+// The value of "this" is returned.
+
+// The main purpose of constructors is to implement reuseable object creation code.
+// We can check whether a function was called with "new" or without it using the "new.target" property. This is useful to allow syntax flexibility. Like this:
+
+/*
+function Cat(name){
+    if( !new.target ){
+        return new Cat(name);
+    }
+    this.name = name;
+}
+let tom = Cat("Tom"); // Redirects call  to new Cat
+alert( tom.name ); // Tom
+*/
+
+// Constructors usually doesn't have a return statement, as their task is to write all the necessary stuff into "this", and then automatically become the result. If there is a return statement, the rules are the following:
+// If "return" is called with object, then it's returned instead of "this"
+// If "return" is called with a primitive, it's ignored.
+// "return" with an object returns that object, in all other cases "this" is returned.
+// For example, here "return" overrides "this" by returning an object:
+
+/*
+function BigCat(){
+    this.name = "Boiiiiiiiiiiiiiiiiii";
+    return { name: "boy" }; // Here we return an object that overrides the "this" return.
+}
+alert( new BigCat().name ); // boy, it returned the object.
+// Constructors usually don't have return statements.
+*/
+
+
+// We can have methods in constructors, like this:
+
+/*
+function Cat(name){
+    this.name = name;
+    this.isHappy = function(){
+        alert( "I am pleased that this is good and cool, I'm: " + this.name );
+    }
+}
+
+let kitty = new Cat("Kitty");
+kitty.isHappy(); // I am pleased that this is good and cool, I'm Kitty
+*/
+
+/*
+let myObj = {};
+function A(){ return myObj }
+function B(){ return myObj }
+alert( new A() == new B() ); //true
+// If a function returns an object, then new returns that instead of "this". So two objects can for instance return the same externally defined object myObj.
+*/
+
+/*
+function Calculator(){
+    this.sum = function( num1, num2 ){
+        this.num1 = num1;
+        this.num2 = num2;
+        return this.num1 + this.num2;
+    };
+    this.mul = function( num1, num2 ){
+        this.num1 = num1;
+        this.num2 = num2;
+        return this.num1 * this.num2;
+    };
+}
+let calculator = new Calculator();
+
+alert ( "sum = " + calculator.sum( 5, 6 ) );
+alert ( "mul = " + calculator.mul( 5, 6 ) );
+*/
+
+/*
+function Accumulator(start){
+    this.value = start;
+    this.add = function( num ){
+        this.num = num;
+        this.value += num;
+        return this;
+    };
+    this.read = function(){
+        return this.value;
+    };
+}
+
+let accumulator = new Accumulator( 0 );
+accumulator.add( 1 );
+accumulator.add( 10 );
+accumulator.add( 19 ).add( 10 ).add( 40 );
+alert( "The accumulated value is: " + accumulator.read() );
+/*
