@@ -821,4 +821,57 @@ multiplyNumerics(menu);
 alert(menu); // Multiplied the values by 2, without touching the string.
 */
 
+// ======================================================== Garbage collector
+// Reachable values cannot be deleted for obvious reasons, such as:
+//
+// Local variables and parameters of the current function
+// Variables and parameters for other functions on the current chain of nested calls
+// Global variables
+// Some internal variables
+//
+// These are called roots.
+//
+// Any other values that are considered reachable if it's reachable from a root by a reference or by a chain of references.
+// Like if there's an objsect inside a local variable, and the object has a property referencing another object, that object is considered reachable, and those that it references are also reachable.
+//
+// There's a background process in the JavaScript engine that monitors all objects and removes those that have become unreachable, that's called the Garbage Collector. Ie:
+
+/*
+let myVar = {
+    key: "Everything's temporary.",
+};
+// We have an object referenced to by myVar now.
+myVar = null;
+// The object has been collected by the garbage collector now. The object's gone because it's unreachable.
+// Had we set another variable, ie: "let myVar2 = myVar;", the object would still be reachable, and thus not be collected by the garbage collector.
+*/
+
+function marry(man, woman){
+    woman.husband = man;
+    man.wife = woman;
+    return{
+        father: man,
+        mother: woman
+    }
+}
+
+let family = marry({
+    name: "John"
+}, {
+    name: "Ann"
+});
+
+// The function marries two objects by having them reference each other and returns a new object that contains them both. If we remove two references:
+
+delete family.father;
+delete family.mother.husband;
+
+// The man becomes unreachable, and thus the garbage collector collects the object with no references it, freeing up memory.
+// If we delete everything:
+delete family;
+// No references are made to neither the man or woman, so they are collected by the garbage collector. Even though the two objects might be referencing each other, they cannot exist if they aren't referenced by the global variable "family". That is, they have been unlinked from the root, no reference to them any longer, you can't reference family.anyone because it doesn't exist.
+// For further reading into garbage collection: http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection http://v8project.blogspot.com/
+
+// =============================================================== Symbol type
+
 
