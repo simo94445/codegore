@@ -761,6 +761,64 @@ alert ( objWithRef.key1 + " " + objWithRef.anObject.key1 ); // Hey a string! Hey
 // Don't reinvent the wheel, use this:
 // https://lodash.com/docs#cloneDeep
 
-// =======================================================================
+// ======================================================================= Object practice
+
+/*
+let user = {};
+user.name = "John";
+user.surname = "Smith";
+user.name = "Pete";
+delete user.name;
+alert( user.name ); // undefined
+*/
+
+/*
+function isEmpty(obj){
+    for( let keys in obj ){
+        return false;
+    }
+    return true;
+}
+//let emptyObj = { name: "hello" };
+alert( isEmpty(emptyObj) ); // false
+*/
+
+/*
+let salaries = {
+    John: 100,
+    Ann: 160,
+    Pete: 130,
+};
+
+function sum(obj){
+    let salarySum = 0;
+    for(let keys in obj){
+        salarySum += obj[keys];
+    }
+    return salarySum;
+}
+alert ("The sum is: " + sum(salaries)); // 390
+*/
+
+/*
+let menu = {
+    width: 200,
+    height: 300,
+    title: "My menu",
+};
+
+function multiplyNumerics(obj){
+    for(let keys in obj){
+        if(typeof obj[keys] == "number"){
+            obj[keys] *= 2;
+        }
+        else{
+            console.log(obj[keys] + " is not a number");
+        }
+    }
+}
+multiplyNumerics(menu);
+alert(menu); // Multiplied the values by 2, without touching the string.
+*/
 
 
