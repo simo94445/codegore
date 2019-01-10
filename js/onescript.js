@@ -846,6 +846,7 @@ myVar = null;
 // Had we set another variable, ie: "let myVar2 = myVar;", the object would still be reachable, and thus not be collected by the garbage collector.
 */
 
+/*
 function marry(man, woman){
     woman.husband = man;
     man.wife = woman;
@@ -870,8 +871,119 @@ delete family.mother.husband;
 // If we delete everything:
 delete family;
 // No references are made to neither the man or woman, so they are collected by the garbage collector. Even though the two objects might be referencing each other, they cannot exist if they aren't referenced by the global variable "family". That is, they have been unlinked from the root, no reference to them any longer, you can't reference family.anyone because it doesn't exist.
+*/
+
 // For further reading into garbage collection: http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection http://v8project.blogspot.com/
 
+
 // =============================================================== Symbol type
+// By specification, object property keys can either be of string type, or symbol type. They can't be integers, nor booleans. So far we've only used strings, this is what symbols can give us though:
+
+// Symbol values represent unique identifiers. This type of valye can be created using Symbol():
+
+/*
+let id = Symbol();
+let id2 = Symbol("A description");
+let id3 = Symbol("A description");
+// Symbols are guaranteed to be unique, even if we have many symbols with the exact same descriptions, they are different values. The description is just a label, it doesn't affect anything.
+
+console.log( id3 == id2 ); // false
+
+// Strings and symbols are fundamentally different and should not occasionally convert one into another. Hence if we want to show a symbol, we have to convert it to a string, ie:
+
+alert( id2.toString() ); // Symbol(id2);
+*/
+
+// We can create hidden properties of an object, that no other part of the code can occasionally access or overwrite. If we want to store an "identifier" for the object user, we can use a symbol as a key for it:
+
+/*
+let user = { name: "boi" };
+let id = ("unique identifier");
+user[id] = "Some ID Value";
+alert( user[id] ); // we can access the data using the symbol as the key.
+*/
+
+// To use a symbol in an object literal, we need to use square brackets:
+
+/*
+let id = Symbol("unique ID");
+let user = {
+    name: "Boiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+    [id]: iwadjwuidj0q2ej0qdwh08hr08q3hfwh
+};
+*/
+
+// Symbolic properties do not participate in for..in loops. You need direct access by the symbol ie: alert( "Direct: " + user[id] );
+// This is the cool thing about Symbols, they are hidden.
+// Object.assign does however copy both string and symbol properties. This works because when we clone or merge objects, we usually want all properties copied, including symbols.
+
+// Global symbols are used to have same-named symbols to be the same entities. For example, different parts of our application wants to access symbol "id" meaning exactly the same propery. To do this, we need to use the Global Symbol Registry. We can create symbols in it and access them later, and it guarantees that repeated accesses by the same name return exactly the same symbol. To do this we use Symbol.for(key). This cal checks the global registry, and if there's a symbol described
+// as a key, it returns it, otherwise it creates a new symbol and stores it in the registry by the given key. ie:
+
+/*
+let id = Symbol.for("id"); // Symbol is created here because it doesn't exist yet.
+let anotherID = Symbol.for("id");
+alert( id === anotherID ); // true
+// Symbols inside this registry are called _global symbols_.
+*/
+
+// When using global symbols, not only Symbol.for(key) can be used to return a symbol by name, but you can return a name by symbol using Symbol.keyFor(sym). Ie:
+
+/*
+let sym = Symbol.for("name");
+let sym2 = Symbol.for("id");
+alert( Symbol.keyFor(sym) ); // name
+alert( Symbol.keyFor(sym2) ); // id
+alert( Symbol.keyFor(Symbol.for("name")) ); // name
+*/
+
+// This works only for global symbols though, it works by looking up the key for the symbol inside the global symbol registry. If it cannot find a symbol, it returns undefined.
+
+// ========================================================================== Methods
+// Methods are functions as properties of objects, like so:
+
+/*
+let cat = {
+    name: "Boiii",
+    age: 918329381,
+};
+cat.doSomething = function(){ // Create a function expression and assign it to the property cat.doSomething of the object.
+    alert( "prrt" );
+};
+cat.doSomething(); // prrt, we called the function contained by the object.
+
+// We can use declared functions as well, like this:
+function doSomethingPlease(){
+    alert( "prrt but politely" );
+}
+cat.doSomethingPolitely = doSomethingPlease;
+cat.doSomethingPolitely(); // prrt but politely
+*/
+
+// We can use the shorthand syntax for this, to make life a little easier:
+
+/*
+let cat = {
+    doSomething(){
+        alert("prrt");
+    }
+};
+cat.doSomething();
+*/
+
+// To call properties contained in the object, we can use this., like this:
+
+/*
+let cat = {
+    name: "boiii",
+    age: "19239124812",
+    cool: true,
+    something: "prrt",
+    doSomething(){
+        alert( "The cat's name's " + this.name + " and he's " + this.age + " years old. We ask him to do something, and he replies: " + this.something  );
+    }
+};
+cat.doSomething();
+*/
 
 
