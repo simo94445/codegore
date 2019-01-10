@@ -719,4 +719,48 @@ for(let args in myConst){
 }
 */
 
+// We can use Object.assign to copy values of objects to other objects, like this:
+
+/*
+let userTest = { name: "nice" };
+let permissionTest = { R: true };
+let permissionTest2 = { W: true };
+Object.assign(userTest, permissionTest, permissionTest2); // Now user has name: "nice", R: true, W: true. Any existing values are overwritten by Object.assign();.
+
+// We can clone easily like this:
+
+let cloneMe = {
+    value1: true,
+    value2: "boii",
+    exreme: 4,
+    5: 6,
+};
+
+let clone = Object.assign({}, cloneMe);
+*/
+
+// ============================================================================= References inside Objects
+// We now know that Objects can contain primitive values, but they can contain references to other objects, too. Like this:
+
+/*
+let objWithRef = {
+    key1: "Hey a string!",
+    key2: 24,
+    anObject: {
+        key1: "Hey another string!",
+        key2: 35,
+        another: true,
+    }
+};
+
+alert ( objWithRef.key1 + " " + objWithRef.anObject.key1 ); // Hey a string! Hey another string!
+*/
+
+// To clone an object within an object, such that the clone does not contain a reference to the contained object, but actually has its own copy of said object, we do Deep Cloning.
+// There's a standard algorithm for deep cloning that can do that for us, we can get that from the JavaScript library called lodash, the method is called _.cloneDeep(obj).
+// Don't reinvent the wheel, use this:
+// https://lodash.com/docs#cloneDeep
+
+// =======================================================================
+
 
