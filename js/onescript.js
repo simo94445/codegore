@@ -1399,4 +1399,7 @@ let sindsyg = {
     }
 };
 
-alert(sindsyg.tekst("Jeg har skrevet et lille script der laver sindsyg tekst for mig"));
+function changeText(){
+  document.getElementById('theText').innerHTML = sindsyg.tekst(document.getElementById('theText').innerHTML);
+}
+//alert(sindsyg.tekst("Jeg har skrevet et lille script der laver sindsyg tekst for mig"));
