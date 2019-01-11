@@ -1377,5 +1377,26 @@ for(let char of myStr){
 // There's also method that searches from the last char and back, it's called str.lastIndexOf(pos).
 // The method str.includes(substr, pos) returns true or false depending whether str contains substr.
 // There's also str.startsWith and .endsWith, they do what they are named.
-//
 
+let sindsyg = {
+    tekst(str){
+        this.tekst = str;
+        let sindsygTekst = ""
+        for(let char of str){
+            sindsygTekst += this.random(char);
+        }
+        return sindsygTekst;
+    },
+    random(upperLower){
+        let number = Math.random()*10;
+        if(number>5){
+            return upperLower.toUpperCase();
+            number = Math.random()*10;
+        } else{
+            return upperLower.toLowerCase();
+            number = Math.random()*10;
+        }
+    }
+};
+
+alert(sindsyg.tekst("Jeg har skrevet et lille script der laver sindsyg tekst for mig"));
