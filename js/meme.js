@@ -20,5 +20,5 @@ let sindsyg = {
 };
 
 function changeText(){
-  document.getElementById('theText').innerHTML = sindsyg.tekst(document.getElementById('theText').innerHTML);
+  document.getElementById('theText').value = sindsyg.tekst(document.getElementById('theText').value);
 }
