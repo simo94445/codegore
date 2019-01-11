@@ -1261,16 +1261,121 @@ function Calculator(){
         }
         return methods[op]( x, y ); // Plug in x and y into our methods function, using the chosen operator.
     }
+
         this.addMethod = function(name, func){ // We have to do this to add methods
         methods[name] = func; // Adds the new function to our methods object.
-    };
+        };
 }
 
-let calc = new Calculator;
+let calc = new Calculator; // create a calc with the properties of the Calculator constructor function.
+
 calc.addMethod( "*", ( x, y ) => x * y ); // Add our own flavour of mathematical operators
 calc.addMethod( "/", ( x, y ) => x / y );
 calc.addMethod( "**", ( x, y ) => x ** y );
+
 alert( calc.calculate( "5 + 5" ) ); // Use our sweet new calculator
 alert( calc.calculate( "5 ** 2" ) );
 alert( calc.calculate( "10 / 3" ) );
 */
+
+
+// ========================================================================================= Data types
+// We've already learned a bit about data types, but I guess it's time for some elaboration.
+
+// Objects are able to store multiple values as properties. They are denoted using {}, like: { key: value, awesome: true }. Functions in JavaScript are actually objects.
+// We can store functions as properties in objects, like so:
+/*let myObj = {
+    key1: "value1";
+    myFunc: function{
+        alert( this.key1 );
+    },
+    aBool: true;
+};*/
+
+// Primitives as objects
+// You can do a lot of things with primitives, like strings or numbers. Accessing them as methods would be cool.
+// Primitives must be as fast and lightweight as possible.
+// This is possible as the language allows access to methods and properties of strings, numbers, booleans and symbols.
+// When methods are accessed for primitives, an "object wrapper" is created that provides the extra functionality, which is destroyed when the method has done its job.
+// Object wrappers are different for each primitive types and are called: String, Number, Boolean, and Symbol. They each provide their different sets of methods.
+// An example of this is a string method, just look at this:
+/*let str = "A regular string that isn't all that loud";
+alert( str.toUpperCase() ); // A REGULAR STRING THAT ISN'T ALL THAT LOUD /s (see the added sarcasm)*/
+
+// And just like that our primitives provide methods, while remaining lightweight. JavaScript puts a lot of effort in optimizing this and making it easy on resources.
+// Here's an example of a method for a float.
+/*let floatingN = 1.1378917389123;
+alert( floatingN.toFixed(3) ); // This automatically rounds the number to our given precision (in this case 3 decimals).*/
+
+// Such methods work via temporary objects, but the JavaScript engine does a great job at optimizing that internally, on modern computers they're barely felt.
+// null and undefined have no wrapper objects, nor do they provide us with any methods. They're about as primitive as involuntarysm.
+// Assigning properties to primitives is a nogo, they cause errors. Create objects {} instead.
+
+// ============================================ Numbers
+// We can write huge numbers easily like this:
+/*let billion = 1e9; // 1 and 9 zeroes, e denotes (e)xponent.
+alert( billion ); // 1000000000
+alert( 4.2e9 ); // 4.2 billion
+alert( 8e-6 ); // This is for tiny numbers, here's 6 zeroes before 8*/
+
+// We can write in Hex, binary and octal, too. This is good for character encoding, colors and much more.
+// alert( 0xff ); // shows us 255, lowercase or uppercase, it doesn't matter.
+// alert( 9b11111111 ); // Binary form of 255
+// alert( 0O0 ); // I'm fucking with you here, that's octal for 0. It's a 0oN, the highest octal is 0o377(255) or something.
+
+// toString(base) is a method that returns a string representation of a number in the numeral system with a given base. ie:
+/*let num = 255;
+alert( num.toString(16) ); // ff, this shows us the base16 value
+alert( num.toString(2) ); // 11111111, this shows us the binary value, good for bitwise operations.*/
+// base=16 is used for hex colors, character encoding, digits can be 0..9 or A..F
+// base=2 is used for binary
+// base=36 is the maximum, digits can be 0..9 A.., the whole latin alphabet used to represent a number. A nice usecase for base36 is creating a long numeric identifier into something shorter, like a short url.
+// To use methods on Numbers, you need to call the method using two dots .. for JS to know that it's not a float you're trying to create, but a method you're trying to call.
+// To round numbers we have a couple of ways:
+// Math.floor // Rounds down
+// Math.ceil // Rounds up
+// Math.round // Rounds to nearest integer
+// Math.trunc // removes anything after the decimal point without any rounding. Odd but probably useful.
+
+// Numbers can be too big, as JavaScript is only able to store numbers in 64 bits, 52 of which are used to store digits, 11 to store the position of the decimal point (0 for integers) and 1 bit for the sign.
+// If a number is too big, it'll overflow the 64 bit storage, maybe causing "infinity" to be your result.
+
+// To test if a number really isn't a number, we can use isNaN(NaN); // true in this case
+// NaN doesn't equal anything, not even itself, so NaN === NaN // false
+// To test if a number is finite, we can use isFinite("29"); // true, isFinite("str"); // false, because that's NaN and is equal to nothing.
+// To test if something is NaN, we can actually use Object.is(NaN, NaN); // === true, this is useful
+// Numeric conversions using Number() or unary + is strict, because if a value isn't exactly a number, it fails.
+// To read values like "10€" or "12px", we can use parseINT and parseFloat, they read the number from a string as far as possible, then upon an error, return what it has gathered.
+// alert( parseInt( '1010px' ) ); // 1010, you get the idea. It reads from left to right, so it'll return an error for "a1010" because such is life.
+// parseInt('0xff', 16); // 255, this is because parseInt function has an optional second parameter that specifies the numeral system.
+
+// ========================================================================== Cool math stuff
+// Math.random(min, max) is a function that chooses a random number between 0 and 1 (not including 1) or between the specified parameters.
+// math.Max(3, 5, -10, 0, 1); // 5, it returns the greatest number from the arbitrary number or arguments
+// math.Min(3, 5, -10, 0, 1); // -10, it returns the smallest number from the arbitrary number of arguments.
+// For more, see: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math (I heard they have trigonometry, nerds)
+// alert( "\u{1F60D}"); // ;)
+
+// The length of a string can be found using the .length method, ie alert( "hiewhuwaidjawd".length ); // returns the length of that keyboard mash, remember that it's a numeric property, not a function, so there's no need to add brackets after it.
+// Accessing characters is kind of cool, it allows us to get a character at a position pos, using square brackes [pos] or calling the method str.charAt(pos). The first character starts from the 0 position.
+/*let myStr = "HE LLO1!";
+alert( myStr[0] ); // H
+alert( myStr[2] ); // " "
+alert( myStr.charAt(3) ); // L
+alert( myStr.[myStr.length -1] ); // ! , this finds the last char.
+// We can also do iteration over characters using a for..of loop
+for(let char of myStr){
+    alert(char); // H, E, , L, L, O, 1, !
+}*/
+
+// We can use str.indexOf to look for a substr in str, starting from the given position pos, and return the position where the match was found or -1 if nothing can be found.
+// let str = ('obnoxious developer')
+// str.indexOf('obno') // 0
+// str.indexOf('no') // 2
+// A second parameter allows us to search starting from the given position, ie:
+// str.indexOf('no', 2) // 0
+// There's also method that searches from the last char and back, it's called str.lastIndexOf(pos).
+// The method str.includes(substr, pos) returns true or false depending whether str contains substr.
+// There's also str.startsWith and .endsWith, they do what they are named.
+//
+
