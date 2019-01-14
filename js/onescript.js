@@ -1924,6 +1924,7 @@ alert(map2.get("true")); // notice how the keys are strings, this is because the
 // map.keys() // returns iterable for keys
 // map.values() // returns iterable for values
 // map.entries() // returns an iterable for entries [key, value], it's used in for...of. ie:
+
 /*
 let doomsday = new Map([
   ["nuclear weapons", 300],
@@ -1940,4 +1941,32 @@ for( let entries of doomsday.entries()){
   alert( entries ); // same as doomsday.entries(); key,value
 }
 // insertion order matters, unlike objects, maps preserve the order the key-value pairs are given. It's an object with the flavour of an array.
+// Map has an built-in forEach loop, like this:
+doomsday.forEach( ( value, key, map ) => {
+alert( value ); // 300, 2, 1001
+alert( key ); // nuclear weapons, anti-matter...
+alert( map); // object Map
+});
 */
+// Sets are collection of values where each value only may occur once. The main methods are:
+// new Set( iterable ); // Creates the set, optionally from an array of values (any iterable will suffice).
+// set.add( value ); // Adds a value to the set, returns the set itself
+// set.delete( value ); // Removes the specified value, returns true if the value existed, otherwise returns false.
+// set.has( value ); // Returns true if the value exists in the set, otherwise it returns false.
+// set.clear(); // Wipes the set.
+// set.size // Returns the amount of elements in the set.
+// Example:
+let cat = { name: "Kitty" };
+let dog = { name: "Marco" };
+let chameleon = { name: "Kamelone" };
+let mySet = new Set();
+mySet.add( cat );
+mySet.add( dog );
+mySet.add( chameleon );
+mySet.add( cat ); // duplicate, this won't be noticed
+mySet.add( dog ); // duplicate, --||--
+mySet.add( chameleon ); // --||--
+for( let entity of mySet){ // iterate over every element in the set, letting entity be the key
+  alert( entity.name ); // Kitty, Marco, Kamelone, .name property of the entity is returned
+}
+alert( mySet.size ); // 3, values can only exist once in sets.
