@@ -1378,6 +1378,7 @@ for(let char of myStr){
 // The method str.includes(substr, pos) returns true or false depending whether str contains substr.
 // There's also str.startsWith and .endsWith, they do what they are named.
 
+/*
 let sindsyg = {
     tekst(str){
         this.tekst = str;
@@ -1402,4 +1403,174 @@ let sindsyg = {
 function changeText(){
   document.getElementById('theText').innerHTML = sindsyg.tekst(document.getElementById('theText').innerHTML);
 }
+
 //alert(sindsyg.tekst("Jeg har skrevet et lille script der laver sindsyg tekst for mig"));
+*/
+
+
+  // You can get a substring  of a string using 1 of 3 methods in JavaScript, substring, substr, and slice. Ie:
+
+/*
+// str.slice(start, [, end])
+let str = "wigga";
+alert(str.slice( 0, 3)); // wig (returns the first 3 chars, excluding the last.)
+alert(str.slice( 0, 1)); // w (returns from 0 to 1, excluding 1)
+alert(str.slice( -4, -1)); // igg, (reads from right position -4 to -1)
+
+// str.substring(start, end); allows doing the same, except you can have a higher start number than end number, but no negative numbers. ie:
+alert(str.substring( 4, 1)); // igg
+
+// str.substr(start, length); is kind of smart, you give it a start position and it reads n amount of characters ahead and returns them, ie:
+alert(str.substring(0, 3)); // wig
+*/
+
+
+ // ======================================================= Comparing Strings
+ // We can compare strings by their utf-16 numeric codes. Strings are compared character by character in alphabetic order.
+ // Lowercases are always greater than uppercase
+ // Letters with diacritical marks are "out of order"
+
+/*
+ alert( "a" > "Z" ); // true
+ alert( "ÖUEUEUE" > "ZUEUEUE"); // True, see, Z is supposed to come after Ö but that ain't happening
+ // There are methods for finding the numeric code of a character, and also methods for finding the character of a numeric code:
+ alert( "z".codePointAt(0) ); // 122, this returns the numeric code for the string at point 0
+ alert( "Z".codePointAt(0) ); // 90
+ // We can do it the other way round too:
+ alert( String.fromCodePoint(90) ); // z
+ alert( String.fromCodePoint(122) ); // Z
+ // We can do unicode characters by using \u followed by their hex code, ie:
+ alert( "\u005a" ); // Z
+*/
+
+ // We can also print a lot of characters, ie all characters with numeric codes 65 to 220:
+
+/*
+ let str="";
+ for( let i = 65; i <= 220; i++ ){
+   str+=String.fromCodePoint(i);
+ }
+ alert(str); // ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§ ̈©a«¬ ®ˉ°±23 ́μ¶∙ ̧1o»1⁄41⁄23⁄4¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜ
+*/
+
+// The alphabet is different for different languages, and thus JavaScript has a method that lets you compare strings in different languages, such as:
+// alert( "Österich".localeCompare("Zealand") ); // -1, because Österich is less than Zealand.
+// str.localeCompare(str2); returns 1 if str is greater than str2, -1 if str is less than str2, and 0 if they're equal.
+// For more information, see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+
+/*
+// We can "trim" words, that is remove the first and last whitespaces with the trim method:
+alert( " HELLO ".trim() + " HELLO ".trim() );// HELLOHELLO
+// We can also repeat a string n amount of sometimes
+alert( "HELLO".repeat(5) ); HELLOHELLOHELLOHELLOHELLO
+*/
+// The method .includes("string"); checks if a string contains another string.
+
+
+
+// =================================================================================== Arrays
+// Arrays are used to store ordered and keyed collections of values. Like any 'good' arrays, they start at 0. They are declared as such:
+// Empty arrays are created by: let myArray = []; or let myArray = new Array();
+// Arrays are declared like this:
+// let myArray = [ "a string ", 3, true, "another string" ];
+// alert( myArray[0] + myArray[1] + myArray[2] + myArray[3]); // a string 3trueanotherstring
+// We can modify objects in an array by:
+// myArray[2] = 5; // Changes element 2 to 5, in this case it changes 3 to 5. You also can add new elements using this mehtod.
+
+// Arrays can store any types of elements, such as:
+/*
+let myArray = [ "a string", { myObject: "boiiiii"}, function(){ alert("a function happened"); }, "another string", 42, 1312, true ];
+alert( myArray[1].myObject ); // boiiiii
+myArray[2](); // runs the function contained by the array at position 3.
+*/
+
+// The common use of arrays are queues. This is an ordered collecion of elements which support two operations:
+// push appends an element to the end of the array
+// shift gets an element from the start of the array, advancing the queue, such that the 2nd element is now the first.
+// Arrays in JavaScript supports both push and shift. There's another use case for arrays, called stacks. This supports two operations:
+// push adds an element to the end of the array
+// pop takes an element from the end.
+// This means that elements are both added and taken from the end of an array.
+// For stacks  the latest pushed item is received first, that's called LIFO (last-in-first-out).
+// Queues are FIFO (first-in-first-out).
+// Arrays in JavaScript allows both stacks and queues. The datastructure that allows this is called: "deque".
+// Read more about deque here: https://en.wikipedia.org/wiki/Double-ended_queue
+// Examples:
+
+/*
+let cats = [ "cute", "adorable", "funny" ];
+alert( cats.pop() ); // Alerts "funny" and removes it from the array.
+alert( cats ); // cute, adorable. Funny no longer is in the array. It has been removed from the "stack"
+
+cats.push( "funny" ); // Adds "funny" to the end of the array, we just removed it and now we added it again.
+// push is the same as: cats[cats.length] = "new element";
+
+alert( cats.shift() ); // Alerts "cute" and removes it from the queue.
+alert( cats ); // adorable, funny, cute is no longer in the queue.
+cats.unshift( "cute" ); // This adds "cute" to the beginning of the queue.
+alert ( cats ); // cute, adorable, funny. Now cute is back in front of the queue again.
+// You can push or unshift multiple elements at the time, just seperate the elements with commas.
+*/
+
+// Arrays are special kinds of objects. The squre brackets we use [] to access a property, comes from the object syntax. The numbers are like object keys.
+// They extend objects by providing extra methods to work with collections of data, including the .length property. At the core, it'ss till an object.
+// There are only 7 basic types in JavaScript, and arrays behave like objects. As with objects, they're copied by reference. See how that works for objects to get an idea of how it works for arrays.
+
+// Performance wise, array methods that work on the end of the array work faster than those who work on the beginning.
+// That is because when you append something to the beginning of an array, or remove an item at the beginning-
+// Any elements behind that new element has to be renumbered, they have to be moved 1 space back.
+// This doesn't happen when you work with LIFO (last-in-first-out), as then you're not reassigning keys to all of the elements.
+// Stacks are just faster because of this.
+
+// Previously I mentioned that strings are just arrays of characters, hence the ability to use the "for...of" loops on strings to iterate over each character of a string.
+// This obviously works for normal arrays like this:
+// for( let cat of cats ) { alert(cat); } // This alerts all elements of the array cats.
+// Because arrays are actually objects, we can also use the for...in loop like this:
+
+/*
+let cats = [ "adorable", "cute", "funny" ];
+for(let keys in cats){
+  alert( cats[keys] ); // adorable, cute, funny
+}
+*/
+
+// Don't do it though. The for...in loop isn't optimized for arrays, they're optimized for objects, and thus non-numeric properties could become a problem for us, as they will be listed too.
+
+// The .length property doesn't actually count the amount of elements in an array, it merely takes the largest index number, and adds one. This could be a problem if you're not thinking about what you're doing.
+// You can use the length property to delete elements of an array, like:
+// let myArray = [1, 2, 3, 4, 5]; myArray.length = 2; // my array now only contains  [1, 2];
+// Clear an array real fast using the length property: myArray.length=0;
+
+// Arrays can contain other arrays too, that's multidimensional arrays for you. This can be used to store matrixes:
+/*
+let myMatrix = [
+  [1,2,3],
+  [4,5,6],
+  [7,8,9],
+];
+alert( myMatrix[0][1] ); // 2, second element of first element of the array.
+*/
+
+// Arrays have their own implementation of the toString method that returns a comma seperated list of elements.
+// Arrays do not have a symbol.toPrimtive, that's because it's an object, and objects can't be primitives.
+// alert( [1] + 1 ); // 11
+// alert( [1].toString + 1 ); // 11
+// alert( [1,2] + 1 ); // 1,21
+
+// Deleting an element of an array is often done using the splice method. The syntax is as follows:
+// arr.splice(index[, deleteCount, element1, ..., elementN]); example:
+/*
+let cats = [ "Cats", "have", "toe", "beans" ];
+cats.splice( 1, 2 ); // Remove 2 elements after element number 1.
+alert(cats); // cats, beans
+*/
+
+/*
+let cats = [ "Cats", "have", "toe", "beans" ];
+cats.splice( 1, 3, "are", "so", "cute"); // Removes 3 elements, starting from element number 1, and replaces the 3 elements with "are", "so", "cute".
+alert( cats ); // Cats, are, so, cute
+*/
+// If we do: let mySplice = cats.splice( 1, 3, "are", "so", "cute"); it'll return "have", "toe", "beans".
+// Splice returns the removed elements.
+// We can use splice to add new elements, to do that, we just set deleteCount to 0, like so:
+// cats.splice( cats.length, 0, "new element", "another new element" );
