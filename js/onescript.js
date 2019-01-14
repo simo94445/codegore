@@ -1956,6 +1956,8 @@ alert( map); // object Map
 // set.clear(); // Wipes the set.
 // set.size // Returns the amount of elements in the set.
 // Example:
+
+/*
 let cat = { name: "Kitty" };
 let dog = { name: "Marco" };
 let chameleon = { name: "Kamelone" };
@@ -1970,3 +1972,34 @@ for( let entity of mySet){ // iterate over every element in the set, letting ent
   alert( entity.name ); // Kitty, Marco, Kamelone, .name property of the entity is returned
 }
 alert( mySet.size ); // 3, values can only exist once in sets.
+
+mySet.forEach( ( value, valueAgain, set) => {
+  alert( value.name ); // returns the value of the set, kind of like above.
+  alert( valueAgain.name ); // we have two values to make it compatible with Maps, Maps take 3 parameters.
+  alert( set ); // Object set
+});
+*/
+
+// =========================================== WeakMap and WeakSet
+// About the same as map and set, except they don't keep the garbage collector from removing objects with no references to them.
+// WeakMap does not support keys(), values(), nor entries(), so good luck iterating over them, and receiving all keys or values from it.
+// Example from the book:
+/*
+let messages = [
+  {text: "Hello", from: "John"},
+  {text: "How goes?", from: "John"},
+  {text: "See you soon", from: "Alice"}
+];
+// fill it with array elements (3 items)
+let unreadSet = new WeakSet(messages);
+// we can use unreadSet to see whether a message is unread
+alert(unreadSet.has(messages[1])); // true
+// remove it from the set after reading
+unreadSet.delete(messages[1]); // true
+// and when we shift our messages history, the set is cleaned up automatically
+messages.shift();
+// no need to clean unreadSet, it now has 2 items
+// unfortunately, there's no method to get the exact count of items, so can't show it
+*/
+
+//
