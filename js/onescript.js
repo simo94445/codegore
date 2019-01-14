@@ -1880,6 +1880,7 @@ alert( arr ); // 1, 4, 9, 16, 25
 // map.clear(); // clears the map, removes everything so you've got an empty map again.
 // map.size // amount of elements, kind of like .length property of arrays.
 // Examples of some of these:
+/*
 let myMap = new Map();
 myMap.set( "1", "a string key" );
 myMap.set( 2, "a numeric key" );
@@ -1897,3 +1898,46 @@ let cats = {
 myMap.set( cats, "being a cat" ); // The object "cats" becomes a key, with the value: "being a cat".
 alert( myMap.get( cats ) ); // "being a cat"
 // When Map compares keys, it uses SameValueZero, which is about the same as ===, but NaN is equal to NaN. Even NaN can be used as a key.
+// map.set returns the map, so you can chain link it, like map.set(1, "boi").set(2, "boi2").set(true, "and so on");
+*/
+
+// When a new map is created, we can pass an array or another iterable with key-value pairs, like so:
+/*
+let map = new Map([
+  ["key1", true],
+  [true, "what"],
+  [0, false],
+]);
+// There's a method that Object.entries(obj) that returns the array of key-value pairs just in that format, how lucky.
+let map2 = new Map(Object.entries({
+  name: "cat",
+  age: 2,
+  occupation: "exterminator",
+  true: false,
+}));
+alert(map2.get("true")); // notice how the keys are strings, this is because they're in an object, and the map is made from the object.
+// map2 contains [["name" => "cat"], ["age" => 2], ["occupation" => "exterminator"]] arrays of key value pairs. That's kind of cool.
+*/
+
+// ================================================== Map iteration
+// for looping over a map, there are 3 methods:
+// map.keys() // returns iterable for keys
+// map.values() // returns iterable for values
+// map.entries() // returns an iterable for entries [key, value], it's used in for...of. ie:
+/*
+let doomsday = new Map([
+  ["nuclear weapons", 300],
+  ["anti-matter-bombs", 2],
+  ["boredom", 1001],
+]);
+for( let WOMD of doomsday.keys()){
+  alert( WOMD ); // returns keys
+}
+for( let amount of doomsday.values()){
+  alert( amount ); // returns values
+}
+for( let entries of doomsday.entries()){
+  alert( entries ); // same as doomsday.entries(); key,value
+}
+// insertion order matters, unlike objects, maps preserve the order the key-value pairs are given. It's an object with the flavour of an array.
+*/
