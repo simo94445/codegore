@@ -2002,4 +2002,10 @@ messages.shift();
 // unfortunately, there's no method to get the exact count of items, so can't show it
 */
 
-//
+// ====================================================================================== Object.keys, values, entries
+// Methods: map.keys(), map.values(), map.entries() are generic, there's a common agreement to use them for data structures.
+// They are supported by Map, Set, and Array (except arr.values()).
+// For plain objects, the following methods are available:
+// Object.keys(obj); // Returns an array of the keys
+// Object.values(obj); // Returns an array of the values
+// Object.entries(obj); // returns an array of [key, value] pairs.
