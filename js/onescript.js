@@ -1756,3 +1756,35 @@ alert( youngCats.length ); // 2, 2 other cats are younger.
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 // These are rarely used so I'm just saving these links here if I'll ever need them.
+
+// ==================================================================================== Iterables
+// The concept that make any object iteratable, iterable objects, make any object usable in a for...of loop. Arrays are by themselves iteratable, but strings and many other built-in objects are iteratable too, and widely used in by the core JavaScript.
+// Many built-in operators and methosd rely on iteratable objects.
+// Symbol.iterator works like this:
+// When for...of starts, it calls Symbol.iterator. (or errors if you're into that kind of thing)
+// The method must return an iterator, an object with the method next.
+// When for...of wants the next value, it calls next() on that object.
+// The result of next() must have the form: {done: Boolean, value: any}, where done=true means that the iteration is finished, otherwise the value must be the new value.
+
+// Here's the full implementation for range:
+let range = {
+  from: 1,
+  to: 5,
+};
+range[Symbol.iterator] = function(){
+  return{
+    current: this.from, // setting the value of "current" to range.from
+    last: this.to, // setting the value of "to" to range.to, we're in "range" so these are just "this".
+
+    next(){ // Create a function that iterates by:
+      if( this.current <= this.last){ // if this.from is less than or equal to this.to, do this:
+        return{ done: false, value: this.current++ }; // Done is false, so it continues to iterate, while incrementing this.current
+      } else {
+        return { done: true }; // When this.from becomes less than or equal to this.to, we're done iterating.
+      }
+    }
+  }
+};
+for( let num of range ){
+  alert( num ); // 1, 2, 3, 4, 5
+}
