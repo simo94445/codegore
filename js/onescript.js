@@ -1766,6 +1766,7 @@ alert( youngCats.length ); // 2, 2 other cats are younger.
 // When for...of wants the next value, it calls next() on that object.
 // The result of next() must have the form: {done: Boolean, value: any}, where done=true means that the iteration is finished, otherwise the value must be the new value.
 
+/*
 // Here's the full implementation for range:
 let range = {
   from: 1,
@@ -1788,3 +1789,111 @@ range[Symbol.iterator] = function(){
 for( let num of range ){
   alert( num ); // 1, 2, 3, 4, 5
 }
+// The iterator object is seperate from the object it iterates over, we can merge the iterator and the iterated object like this:
+// ..for simplicitity:
+*/
+/*
+let range = {
+  from: 1,
+  to: 5,
+   [Symbol.iterator](){
+     this.current = this.from;
+     return this; // returns the range object itself, it has the necessary next() method and remembers its iteration progress in "this.current".
+   },
+   next(){
+     if( this.current <= this.to){
+       return{ done: false, value: this.current++};
+     } else{
+       return{ done: true, }
+     }
+   }
+};
+for(let num of range ){
+  alert( num ); // 1, 2, 3, 4, 5
+}
+// We can't have two for...of iterations happen on this object now though, as they'll share this.current, and thus mess up values. There's only one iterator, the object itself, they would share the iteration state "this.current".
+*/
+
+// Usually the internals of iterables are hidden from the external code, the for...of loop works and that's all it needs to know.
+// To get a deeper understanding of iterables, let's call one explicitly, we'll iterate over a string just like a for...of loop would:
+/*
+let wiseWords = "Cats and dogs are cool and good.";
+let iterator =  wiseWords[Symbol.iterator]();
+
+while(true){
+  let result = iterator.next(); // setting result to the .next method, kind of exactly like above.
+  if( result.done ) break; // In the iterator.next(); function, there's the key 'done', when it returns true, break the loop.
+  alert( result.value ); // value is this.current, like in the example above.
+}
+// this is essentially the same as for(let char of wiseWords){ alert( char ); }
+*/
+
+// ======================================================================== Iterables and array-likes
+// Iterables are objects that implement the Symbol.iterator() method, as explained above.
+// Array-likes are ojects that have index and length, so they look a lot like arrays, without having the methods and properties of arrays.
+// Iterables are not necessarily array-like, and array-like is not necessarily iterable.
+// Both iterables and array-likes don't have the methods and properties of arrays, like pop, push and so on.
+// If we want to work with such object as if they were arrays, we can use Array.from.
+
+/*
+let arrayLike = {
+  0: "Foo",
+  1: "bar",
+  length: 2,
+};
+let actualArray = Array.from(arrayLike);
+alert( actualArray.pop() ); // bar, now arrayLike can be treated as an array through actualArray.
+*/
+
+// The syntax is: Array.from(obj[, mapFn, thisArg]);
+// mapFn, the mappingfunction, can be used to run a function on each element of the object before adding it to the array. This is optional.
+/*
+let range = {
+  from: 1,
+  to: 5,
+   [Symbol.iterator](){
+     this.current = this.from;
+     return this; // returns the range object itself, it has the necessary next() method and remembers its iteration progress in "this.current".
+   },
+   next(){
+     if( this.current <= this.to){
+       return{ done: false, value: this.current++};
+     } else{
+       return{ done: true, }
+     }
+   }
+};
+let arr = Array.from( range, num => num * num );
+alert( arr ); // 1, 4, 9, 16, 25
+*/
+
+// ==================================================================== Map, Set, WeakMap and WeakSet
+// We've went over complex data structures such as: Objects, for storing keyed collections, and Arrays for storing ordered collections.
+// There's also such thing as a Map and Set.
+// Map is a collection of keyed data items, kind of like objects. The difference is that Map allows keys of any type.
+// The methods Maps have for us are the following:
+// new Map(); // Creates the map.
+// map.set(key, value); // stores the value by key.
+// map.get(key); // returns the value by key if it exists, otherwise returns undefined.
+// map.has(key); // returns true if the key exists, false if it doesn't.
+// map.delete(key); // removes value by key.
+// map.clear(); // clears the map, removes everything so you've got an empty map again.
+// map.size // amount of elements, kind of like .length property of arrays.
+// Examples of some of these:
+let myMap = new Map();
+myMap.set( "1", "a string key" );
+myMap.set( 2, "a numeric key" );
+myMap.set( true, "a boolean key" );
+alert( myMap.get( 2 ) ); // a numeric key
+alert( myMap.get( "1" ) ); // a string key
+alert( myMap.get( true ) ); // a boolean key
+alert( myMap.size ); // 3
+// Unlike with objects, keys are not converted to strings, their key type is untouched.
+let cats = {
+  name: "Whiskers",
+  occupation: "Cat",
+  age: 7,
+};
+myMap.set( cats, "being a cat" ); // The object "cats" becomes a key, with the value: "being a cat".
+alert( myMap.get( cats ) ); // "being a cat"
+// When Map compares keys, it uses SameValueZero, which is about the same as ===, but NaN is equal to NaN. Even NaN can be used as a key.
