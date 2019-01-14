@@ -1574,3 +1574,185 @@ alert( cats ); // Cats, are, so, cute
 // Splice returns the removed elements.
 // We can use splice to add new elements, to do that, we just set deleteCount to 0, like so:
 // cats.splice( cats.length, 0, "new element", "another new element" );
+
+// The method array.slice(start, end); returns a new array with all the elements between start and end, excluding end.
+// let cats = [1, 2, 3, 4, 5];
+// cats.splice(1,3); // 2,3
+
+// The method array.concat joins the array with other arrays or items. It's used like this:
+/*
+let cats = [ 1, 2, 3, 4, 5];
+let moreCats = [ 6, 7, 8, 9, "cats "];
+let truth = cats.concat( moreCats, ["are ", "great"] ); // 1, 2, 3, 4, 5, 6, 7, 8, 9, cats, are, great
+alert( truth );
+*/
+
+// Normally you can't added objects to an array, as concat usually only copies elements and "spreads" them.
+/*
+let arr = [ 1, 2 ];
+let arrayLike = {
+  0: "An element",
+  key1: 10,
+};
+alert( arr.concat(arrayLike) ); // 1, 2,  [object Object]
+*/
+// but if arrayLike has the Symbol.isConcatSpreadable property , it'll add the elements.
+/*
+let arr2 = [ 1, 2 ];
+let arrayLike2 = {
+  0: "An element",
+  1: 10,
+  [Symbol.isConcatSpreadable]: true,
+  boiii: "yea",
+  2: 10,
+};
+alert( arr2.concat(arrayLike2) ); // 1, 2 (maybe electronJS is a little weird about this?)
+*/
+
+// There are methods allowing us to search for elements in an array.
+// The methods: arr.indexOf(item, from), arr.lastIndex(item, from), and arr.includes(item, from) works like they do for strings, but operates on elements instead of characters of strings.
+/*
+let arr = [1, 0, false];
+alert( arr.indexOf(0) ); // 1, returns the index of where it was found, otherwise it returns -1
+alert( arr.indexOf(false) ); // 2
+alert( arr.indexOf(null) ); // ‐1, didn't find it
+alert( arr.includes(1) ); // true, returns true if it found it, otherwise false.
+// These methods use ===, meaning they have to be equal and of same data type to return true. Type conversions don't happen.
+*/
+
+// If we have an array of objects, how do we find a specific object within this array? I'm telling you, arr.find() is the way to go.
+// The syntax is: let result = arr.find( function( item, index, array){//returns true if the object is in it}):
+// The function is called repetitively for each element of the array.
+// Item is the element
+// Index is its index
+// array is the name of the array
+// If it returns true, the function stops there and true is returned. If nothing is found, it'll return undefined.
+
+/*
+let cats = [
+  {id: 1, name: "Whiskers"},
+  {id: 2, name: "Tom"},
+  {id: 3, name: "Kitty"},
+];
+let cat = cats.find( item => item.id == 3 ); // This arrow function runs on every element of the array, and returns true when it finds an object containing id: 3.
+alert( cat.name ); // Kitty
+// Searching in objects of arrays is pretty common, so this is useful.
+// arr.findIndex does the same, but returns the index number of the found element instead of the element itself.
+*/
+
+// Filter does about the same as find and findIndex, except it allows you to have many elements return true, and returns them in an array.
+// The syntax is about the same, but it returns an array of elements that match.
+
+/*
+let cats = [
+  {id: 1, name: "Whiskers"},
+  {id: 2, name: "tom"},
+  {id: 3, name: "Kitty"},
+];
+let cat = cats.filter( item => item.id < 5);
+alert( cat.length ); // 3, it found 3 objects that returned true to the statement item.id < 5.
+*/
+
+// One of the most useful methods for arrays is arr.map(). It calls the function for each element of the array and returns an array of the results.
+// Here's an example that returns an array of the length of all elements.
+//let goodCats = [ "Kitty", "Hubert", "Mis", "Mjav"].map( item => item.length);
+//alert( goodCats );  // 5, 6, 3, 4
+
+/*
+// arr.sort() is a method that sorts the array in place. Like this:
+let catAge = [1, 2, 15];
+catAge.sort();
+alert( catAge ); // 1, 15, 2, by default the sort method sorts by string value, all elements are converted to strings and are then compared.
+// We can use our own sorting order by using our own function to sort, like this:
+function sortRight( x, y ){
+  if( x > y ){ return 1 };
+  if( x < y ){ return -1 };
+  if( x == y){ return 0 };
+}
+catAge.sort( sortRight ); // use our own function to sort by numeric value rather than string value.
+alert( catAge ); // 1, 2, 15
+
+// All this could have been done shorter, by:
+catsAge.sort( ( a, b ) => a - b); // The number it returns just has to be >1 to return true, this will do the same thing as above.
+*/
+
+// The method arr.reverse(); reverses the order of the array. It also returns the array after reversal.
+
+// We can use the str.split(delim); to split a string into an array by a given delimiter. For example:
+
+/*
+let cats = ""Kitty", "Hubert", "Tom", "Whiskers"";
+let myArray = cats.split(", "); // splits the string at every ", ".
+for( let names of myArray){
+  alert( "Hello to " + names );
+}
+*/
+
+// We can use the arr.join(str) to glue together elements of an array into a string using str as 'glue'.
+
+/*
+let cats = [ "Kitty", "Hubert", "Tom", "Whiskers" ];
+let catYarn = cats.join(" ");
+alert( catYarn ); // Kitty Hubert Tom Whiskers
+*/
+
+// We can use arr.reduce() to return a single value based on an array. Like so:
+
+/*
+let bits = [ 1, 2, 4, 8, 16, 32, 64, 128]
+let sum = bits.reduce( ( a, b ) => a + b, 0); // This adds the current value of the current iteration of the current element (b) to the sum (a).
+alert( sum );
+// step 1: a = 0, b = 1
+// step 2: a = 1, b = 2
+// step 3: a = 3, b = 4
+// step 4: a = 7, b = 8
+// step 5: a = 15, b = 16
+// step 6: a = 31, b = 32
+// step 7: a = 63, b = 64
+// step 9: a = 127, b = 128
+// step 10: a = 255, b = undefined, done and good and stuff
+// arr.reduceRight does the same, but reads from right to left.
+*/
+
+// To run a function for every element of an array, we can use the arr.forEach method. Like this:
+
+/*
+let myArray = [ "Cats", "Dogs", "Computers", "and stuff"];
+myArray.forEach( ( item, index, array ) => {
+  alert( `item ${item} is at index ${index} in array ${array}.` );
+} );
+*/
+
+//  We can check whether something is an array using Array.isArray();
+//alert(Array.isArray([])); // true
+//alert(Array.isArray("")); // false
+
+// Most methods that call functions such as 'find', 'filter', 'map', support an additional parameter, 'thisArg'. Not arr.sort though.
+// arr.find(func, thisArg)
+// arr.filter(func, thisArg)
+// arr.map(func, thisArg)
+// The value of thisArg becomes "this" of the function.
+/*
+let coolKitty = {
+  age: 5,
+  younger(otherCats){
+    return otherCats.age < this.age; // returns true if the other cats are younger.
+  },
+};
+let cats = [
+  {age: 2},
+  {age: 3},
+  {age: 5},
+  {age: 10},
+];
+let youngCats = cats.filter(coolKitty.younger, coolKitty); // running the coolKitty.younger method on 'cats', using coolKitty as "this".
+alert( youngCats.length ); // 2, 2 other cats are younger.
+*/
+// Of the previous learned material above, sort, reverse and splice modify the array itself, all others return a value.
+// There's more to arrays, see these links for elaboraton:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+// These are rarely used so I'm just saving these links here if I'll ever need them.
