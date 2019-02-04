@@ -2009,3 +2009,38 @@ messages.shift();
 // Object.keys(obj); // Returns an array of the keys
 // Object.values(obj); // Returns an array of the values
 // Object.entries(obj); // returns an array of [key, value] pairs.
+
+// For maps, we can call map.keys(), but for objects, we have to call by Object.keys(obj);
+// map.keys() returns an iteratable, Object.keys(obj) returns a real array.
+// Example:
+/*
+let cat = {
+  name: "Whiskers",
+  age: 8,
+};
+for( let value of Object.values(cat) ){ // try changing .values to .entries or .keys or some shit
+  alert( value ); // Whiskers, 8.
+}
+// Object.values/entries/keys ignore symbolic properties, like for..in loops.
+// To get an array of symbolic properties, use Object.getOwnPropertySymbols, this returns an array of only symbolic keys.
+// The method Reflect.ownKeys(obj) return _ALL_ keys.
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys
+*/
+
+// ====================================================================================== Destructuring assignment
+// We can 'destructure' arrays into individual arrays like this:
+/*
+let myArray = [ "foo", "bar", "yea", "boi" ];
+let [one, two, three, four] = myArray;
+alert( one + two + three + four ); // foobaryeaboi
+*/
+// This lets us work with variables instead of array members.
+// It can be done rather prettily with the .split method like this:
+/*
+let [one, two] = "foo bar".split(' ');
+alert( one );
+alert( two );
+*/
+// This stuff works with any iterables, just look:
+let 

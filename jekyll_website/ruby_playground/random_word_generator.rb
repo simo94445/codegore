@@ -1,8 +1,8 @@
 # Check amount of words and set word list location and some variables
-file1 = File.open("/home/simon/jekyll_website/ruby_playground/lang1.txt", "r")
-file2 = File.open("/home/simon/jekyll_website/ruby_playground/lang2.txt", "r")
-filelocation = "/home/simon/jekyll_website/ruby_playground/lang1.txt"
-filelocation2 = "/home/simon/jekyll_website/ruby_playground/lang2.txt"
+file1 = File.open("/home/simon/codegore/jekyll_website/ruby_playground/lang1.txt", "r")
+file2 = File.open("/home/simon/codegore/jekyll_website/ruby_playground/lang2.txt", "r")
+filelocation = "/home/simon/codegore/jekyll_website/ruby_playground/lang1.txt"
+filelocation2 = "/home/simon/codegore/jekyll_website/ruby_playground/lang2.txt"
 wordstotal1 = file1.readlines.size
 wordstotal2 = file2.readlines.size
 print "Choosing from: ", wordstotal1 + wordstotal2, " words. \n\n"
