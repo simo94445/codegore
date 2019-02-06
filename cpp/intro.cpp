@@ -16,7 +16,8 @@ using namespace  std; /* Pre-defined names in C++ can be found in the std (stand
 * computer networks, distributed systems that assign names to resources, such as computers, printers, servers, files, etc. */
 
 
-void line(), foo(), bar(); // Prototypes
+void line(), foo(), bar(); /* Prototypes are created to allow the main() function to be defined first, which is good
+* because this function defines how the program will run. This way, main() can call functions that has yet to be defined. */
 
 /* Programs written in C++ start by running the instructions within the main() function. Apart from the fact that
 * the main() can't be renamed, it's like any other function in C++.*/
@@ -29,6 +30,7 @@ int main(){ // We create a global function with the type Integer.
   foo();
   line();
   bar();
+  line();
   line();
   return 0; /* Here we terminate the main() function returning the value 0 as an exit code to the calling program.
   * In standard practice, exit code 0 means that a program terminated correctly. */
