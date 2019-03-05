@@ -1,0 +1,2 @@
+electron-packager . for_the_windows_scrub --platform=win32 --arch=x64
+
