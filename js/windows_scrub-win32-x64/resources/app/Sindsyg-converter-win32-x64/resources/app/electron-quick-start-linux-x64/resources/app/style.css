@@ -1,0 +1,71 @@
+body{
+  background-color: #293336;
+}
+h3{
+  color: #c0c5ce;
+  font-family:Arial;
+  font-size:18px;
+}
+.myTextbox{
+  /*padding-left: 5px;
+  padding-right: 5px;*/
+  border: 2px;
+  width: auto;
+  height: auto;
+  padding-right: 8px;
+  text-align: center;
+}
+.theText{
+  width: 100%;
+  height: 300px;
+  font-size: 1.5em;
+  background-color: #4f5b66;
+  color: #c0c5ce;
+  padding-left: 0px;
+  padding-right: 5px;
+  border: 1px solid;
+  resize: none;
+  outline: none;
+  word-wrap: off;
+  overflow: auto;
+  /*position: absolute;*/
+}
+
+/* color palette:
+Darkest: #293336
+1: #4f5b66
+3: #65737e
+3: #a7adba
+lightest: #c0c5ce
+*/
+
+.myButton{
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  text-align: left;
+  padding-top: 5px
+}
+.theButton{
+  background-color: #65737e;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 2px solid #707070;
+  display: inline-block;
+  cursor: pointer;
+  color: #c0c5ce;
+  font-family: Arial;
+  font-size: 18px;
+  padding: 6px 11px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #293336;
+  position: absolute;
+}
+.theButton:hover{
+  background-color:#4f5b66;
+}
+.theButton:active{
+  position:relative;
+	top:1px;
+}
