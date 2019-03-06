@@ -9,7 +9,7 @@ function Password() {
     };
 
     this.addEntropy = function(str){
-      let symbols = ["% ", "$ ", "& ", "/ ", "( ", "[ ", "= ", "} ", "= ", "? ", "! ", " ", " ", "£ ", "€ ", "! ", ") "];
+      let symbols = ["% ", "$ ", "& ", "/ ", "( ", "[ ", "= ", "} ", "= ", "? ", "! ", " ", "£ ", "€ ", "! ", ", ", "* ", "| "];
       let number = Math.random()*10;
       let securePassword = "";
       securePassword += str + symbols[Math.round(Math.random() * symbols.length)];
