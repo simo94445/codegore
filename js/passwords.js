@@ -10,9 +10,10 @@ function Password() {
 
     this.addEntropy = function(str){
       let symbols = ["% ", "$ ", "& ", "/ ", "( ", "[ ", "= ", "} ", "= ", "? ", "! ", " ", "£ ", "€ ", "! ", ", ", "* ", "| "];
-      let number = Math.random()*10;
       let securePassword = "";
-      securePassword += str + symbols[Math.round(Math.random() * symbols.length)];
+      let min = Math.ceil(0);
+      let max = Math.floor(symbols.length);
+      securePassword += str + symbols[Math.floor(Math.random() * (max - min)) + min];
       return securePassword;
     };
 }
