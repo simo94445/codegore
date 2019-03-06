@@ -31,21 +31,29 @@ h3{
   /*position: absolute;*/
 }
 
-/* color palette:
-Darkest: #293336
-1: #4f5b66
-3: #65737e
-3: #a7adba
-lightest: #c0c5ce
-*/
 
 .myButton{
   width: 100%;
   height: auto;
   margin: 0 auto;
   text-align: left;
-  padding-top: 5px
+  padding-top: 0px;
 }
+.myButton2{
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 0px;
+}
+.myButton3{
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  text-align: right;
+  padding-top: 0px;
+}
+
 .theButton{
   background-color: #65737e;
   -moz-border-radius: 6px;
@@ -71,13 +79,6 @@ lightest: #c0c5ce
 }
 
 
-.myButton2{
-  width: 100%;
-  height: auto;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 0px;
-}
 .theButton2{
   background-color: #65737e;
   -moz-border-radius: 6px;
@@ -100,4 +101,9 @@ lightest: #c0c5ce
 .theButton2:active{
   position:relative;
 	top:1px;
+}
+
+.myButtons{
+  display: inline;
+  position: static;
 }

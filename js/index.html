@@ -5,6 +5,7 @@
     <title>MakE yOUr teXT SiNDSYg</title>
     <script src="meme.js"></script>
     <script src="calculator.js"></script>
+    <script src="passwords.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"></link>
   </head>
   <body>
@@ -17,14 +18,22 @@
       <textarea class = "theText" id = "theText" name = "theText">Enter your text here</textarea>
     </div>
 
-    <div class = "myButton">
-      <button onclick="calculateText()" class = "theButton">Solve the text as math</button>
-    </div>
 
-    <div class = "myButton2">
-      <button onclick="changeText()" class = "theButton2">Make the text sindsyg</button>
-    </div>
+    <div class = "myButtons">
 
+      <div class = "myButton">
+        <button onclick="calculateText()" class = "theButton">Solve the text as math</button>
+      </div>
+
+      <div class = "myButton2">
+        <button onclick="changeText()" class = "theButton">Text to Sindsyg</button>
+      </div>
+
+      <div class = "myButton3">
+        <button onclick="createPassword()" class = "theButton2">Text to Password</button>
+      </div>
+
+    </div>
     <!-- <script src="onescript.js"></script> -->
 
     <script>
