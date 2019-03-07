@@ -1,0 +1,14 @@
+body {
+  background-image: url("waldo1.jpg");
+  background-size: 800px 600px;
+}
+
+.theButton{
+  margin-left: 500px;
+  margin-top: 530px;
+  height: 35px;
+  width: 35px;
+  background: transparent;
+  font-size:0;
+  border: 0 !important;
+}

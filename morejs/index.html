@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>FInD HolGEr</title>
+    <link rel="stylesheet" type="text/css" href="style.css"></link>
+    <script src="waldo.js"></script> <!-- Load waldo.js ved opstart-->
+  </head>
+
+  <body>
+
+    <div class = "myButton">
+      <div class = "theButtonDiv">
+        <button onclick="foundWaldo()" class = "theButton" id = "theButton">knap</button> <!-- Lav en knap og giv den et class og ID navn, så den kan findes med JavaScript-->
+      </div>
+    </div>
+
+<!-- load electronJS script så den kan cross-compiles -->
+    <script>
+      require('./renderer.js')
+    </script>
+
+  </body>
+
+  </html>

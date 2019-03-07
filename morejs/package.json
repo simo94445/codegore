@@ -1,0 +1,22 @@
+{
+  "name": "findfemfejl",
+  "version": "1.0.0",
+  "description": "Find nogle fejl scrub",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Simon Kildegaard Christiansen",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^4.0.7"
+  }
+}
